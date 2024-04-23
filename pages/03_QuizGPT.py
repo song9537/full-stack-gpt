@@ -7,11 +7,13 @@ from langchain.callbacks import StreamingStdOutCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import BaseOutputParser
 import json
+import re
 
 class JsonOutputParser(BaseOutputParser):
     
     def parse(self,text):
-        text = text.replace("```","").replace("json","").replace(",]",",").replace(",}","}")
+        text = text.replace("```json", "").replace("```", "")
+        text = re.sub(r",\s*([}\]])", r"\1", text)
         return json.loads(text)
 
 output_parser = JsonOutputParser()
@@ -224,6 +226,7 @@ def wiki_search(term):
 
 with st.sidebar:
     docs = None
+    topic = ""
     choice = st.selectbox(
         "Choose what you want to use.",
         (
@@ -235,6 +238,7 @@ with st.sidebar:
         file = st.file_uploader("Upload a .docs , .txt or .pdf file ", type=["pdf", "txt","docx"],)
         if file:
             docs = split_file(file)
+            topic = file.name
     else:
         topic = st.text_input("Name of the article")
         if topic:
@@ -252,7 +256,7 @@ if not docs:
     """
     )
 else:
-    response = run_quiz_chain(docs, topic if topic else file.name)
+    response = run_quiz_chain(docs, topic)
     with st.form("questions_form"):
         for idx, question in enumerate(response["questions"]):
             st.write(question["question"])
