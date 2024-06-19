@@ -17,7 +17,7 @@ Using Langchain and Streamlit, there are the apps I made using GPT API key:
 - [✅] [PrivateGPT]( /PrivateGPT)
 - [✅] [QuizGPT]( /QuizGPT)
 - [✅] [SiteGPT]( /SiteGPT)
-- [ ] [MeetingGPT]( /MeetingGPT)
+- [✅] [MeetingGPT]( /MeetingGPT)
 - [ ] [InvestorGPT]( /InvestorGPT)
 
 Please enjoy!

@@ -4,3 +4,4 @@ files/
 .cache/
 .streamlit
 venv/
+movies.sqlite
